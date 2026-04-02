@@ -1,0 +1,15 @@
+# use the offical node.js 18 image with alpine linus as the base image
+
+FROM node:20-alpine
+
+WORKDIR /usr/src/app
+
+COPY package*.json ./
+
+RUN npm ci --only=production
+
+COPY . .
+
+EXPOSE 3003
+
+CMD [ "node" , "src/server.js" ]
