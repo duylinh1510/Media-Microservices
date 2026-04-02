@@ -4,7 +4,6 @@ const logger = require('../utils/logger')
 
 async function handlePostCreated(event) {
     try {
-        console.log('handlePostCreated called with:', event);
         const newSearchPost = new Search({
             postId: event.postId,
             userId: event.userId,

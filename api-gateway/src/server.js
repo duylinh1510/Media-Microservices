@@ -182,13 +182,7 @@ app.use('/v1/media', validateToken, proxy(process.env.MEDIA_SERVICE_URL, {
 }))
 
 //setting up proxy for search services
-app.get('/v1/search/posts', validateToken, (req, res, next) => {
-    console.log('=== API GATEWAY SEARCH ROUTE HIT ===');
-    console.log('SEARCH_SERVICE_URL:', process.env.SEARCH_SERVICE_URL);
-    console.log('Original URL:', req.originalUrl);
-    console.log('Path:', req.path);
-    next();
-},
+app.get('/v1/search/posts', validateToken,
     proxy(process.env.SEARCH_SERVICE_URL, {
         ...proxyOptions,
         proxyReqOptDecorator: (proxyReqOpts, srcReq) => {

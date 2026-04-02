@@ -9,7 +9,7 @@ const logger = winston.createLogger({
         winston.format.splat(), // Hỗ trợ string interpolation
         winston.format.json() // Format JSON
     ),
-    defaultMeta: { service: 'post-service' },
+    defaultMeta: { service: 'search-service' },
     //Nơi ghi log
     transports: [
         // Console (Terminal) - ghi log dạng màu sắc, dễ đọc

@@ -1,5 +1,4 @@
 require('dotenv').config();
-console.log('Search service starting...');
 const express = require('express');
 const mongoose = require('mongoose');
 const Redis = require('ioredis');
@@ -34,27 +33,12 @@ app.use(cors())
 app.use(express.json())
 
 app.use((req, res, next) => {
-    console.log('=== INCOMING REQUEST ===');
-    console.log('Method:', req.method);
-    console.log('URL:', req.url);
-    console.log('Path:', req.path);
-    console.log('Query:', req.query);
-    console.log('Headers:', req.headers);
     logger.info(`Received ${req.method} request to ${req.url}`);
     next();
 });
 
 
-app.use('/api/search', (req, res, next) => {
-    console.log('=== ROUTE MATCHED /api/search ===');
-    next();
-}, searchRoutes);
-
-app.use((err, req, res, next) => {
-    console.log('=== ERROR HANDLER ===');
-    console.log('Error:', err);
-    res.status(500).json({ error: err.message });
-});
+app.use('/api/search', searchRoutes);
 
 app.use(errorHandler);
 

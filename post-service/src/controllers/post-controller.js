@@ -154,16 +154,6 @@ const getPost = async (req, res) => {
 const deletePost = async (req, res) => {
     try {
         await invalidatePostCache(req, req.params.id);
-        console.log('User from token:', req.user);
-        console.log('Post ID:', req.params.id);
-        console.log('User ID to search:', new mongoose.Types.ObjectId(req.user.userId));
-
-        // Debug: Check what's actually in the database
-        const postToCheck = await Post.findById(req.params.id);
-        console.log('Post found:', postToCheck);
-        console.log('Post user field:', postToCheck?.user);
-        console.log('Post user field type:', typeof postToCheck?.user);
-        console.log('Are they equal?', postToCheck?.user?.equals(new mongoose.Types.ObjectId(req.user.userId)));
 
         const post = await Post.findOneAndDelete({
             _id: req.params.id, // id của bài cần xóa

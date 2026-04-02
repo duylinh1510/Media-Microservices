@@ -20,7 +20,7 @@ const createPostLimiter = rateLimit({
 
 
 const deletePostLimiter = rateLimit({
-    windowMs: 15 * 60 * 100,
+    windowMs: 15 * 60 * 1000,
     max: 10,
     store: new RedisStore({
         sendCommand: (...args) => redis.call(...args)
@@ -46,3 +46,5 @@ const getAllPostsLimiter = rateLimit({
         });
     }
 });
+
+module.exports = { createPostLimiter, deletePostLimiter, getAllPostsLimiter };

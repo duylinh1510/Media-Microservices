@@ -18,20 +18,14 @@ const upload = multer({
 
 router.post('/upload', authenticateRequest, uploadMediaLimiter, (req, res, next) => {
     upload(req, res, function (err) {
-        // MulterError (vd: file quá lớn)  → 400
-        console.log('req.file:', req.file);        // ← thêm dòng này
-        console.log('req.body:', req.body);        // ← thêm dòng này
-        console.log('Content-Type:', req.headers['content-type']); // ← thêm dòng này
         if (err instanceof multer.MulterError) {
             logger.error('Multer error while uploading:', err)
             return res.status(400).json({
                 message: 'Multer error while uploading',
-                error: err.message,
-                stack: err.stack
+                error: err.message
             })
         }
 
-        // Lỗi khác (vd: sai file type)    → 400
         if (err) {
             logger.error('Unknown error while uploading:', err)
             return res.status(400).json({
@@ -39,7 +33,6 @@ router.post('/upload', authenticateRequest, uploadMediaLimiter, (req, res, next)
             })
         }
 
-        // Thành công → next() -> uploadMedia controller -> Upload Cloudinary + lưu MongoDB
         next();
     })
 }, uploadMedia);

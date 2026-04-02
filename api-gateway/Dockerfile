@@ -1,4 +1,4 @@
-# use the offical node.js 18 image with alpine linus as the base image
+# use the official node.js 20 image with alpine linux as the base image
 
 FROM node:20-alpine
 
