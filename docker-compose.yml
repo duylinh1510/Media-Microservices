@@ -1,4 +1,3 @@
-version: "3"
 services:
   api-gateway:
     build: "./api-gateway"
@@ -9,8 +8,8 @@ services:
       - redis
       - rabbitmq
     environment:
-      - REDIS_URL = redis://redis:6379
-      - RABBITMQ_URL = amqp://rabbitmq:5672
+      - REDIS_URL=redis://redis:6379
+      - RABBITMQ_URL=amqp://rabbitmq:5672
   identity-service:
     build: "./identity-service"
     env_file: ./identity-service/.env
@@ -18,8 +17,8 @@ services:
       - redis
       - rabbitmq
     environment:
-      - REDIS_URL = redis://redis:6379
-      - RABBITMQ_URL = amqp://rabbitmq:5672
+      - REDIS_URL=redis://redis:6379
+      - RABBITMQ_URL=amqp://rabbitmq:5672
   post-service:
     build: "./post-service"
     env_file: ./post-service/.env
@@ -27,8 +26,8 @@ services:
       - redis
       - rabbitmq
     environment:
-      - REDIS_URL = redis://redis:6379
-      - RABBITMQ_URL = amqp://rabbitmq:5672
+      - REDIS_URL=redis://redis:6379
+      - RABBITMQ_URL=amqp://rabbitmq:5672
   media-service:
     build: "./media-service"
     env_file: ./media-service/.env
@@ -36,8 +35,8 @@ services:
       - redis
       - rabbitmq
     environment:
-      - REDIS_URL = redis://redis:6379
-      - RABBITMQ_URL = amqp://rabbitmq:5672
+      - REDIS_URL=redis://redis:6379
+      - RABBITMQ_URL=amqp://rabbitmq:5672
   search-service:
     build: "./search-service"
     env_file: ./search-service/.env
@@ -45,14 +44,19 @@ services:
       - redis
       - rabbitmq
     environment:
-      - REDIS_URL = redis://redis:6379
-      - RABBITMQ_URL = amqp://rabbitmq:5672
+      - REDIS_URL=redis://redis:6379
+      - RABBITMQ_URL=amqp://rabbitmq:5672
   redis:
     image: redis:latest
     ports:
       - "6379:6379"
     volumes:
       - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
   rabbitmq:
     image: rabbitmq:3-management
     ports:
