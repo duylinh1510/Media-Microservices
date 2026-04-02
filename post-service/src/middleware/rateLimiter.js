@@ -10,7 +10,6 @@ const createPostLimiter = rateLimit({
     store: new RedisStore({
         sendCommand: (...args) => redis.call(...args)
     }),
-    keyGenerator: (req) => req.ip,
     handler: (req, res) => {
         res.status(429).json({
             success: false,
@@ -26,7 +25,6 @@ const deletePostLimiter = rateLimit({
     store: new RedisStore({
         sendCommand: (...args) => redis.call(...args)
     }),
-    keyGenerator: (req) => req.ip,
     handler: (req, res) => {
         res.status(429).json({
             success: false,
@@ -41,7 +39,6 @@ const getAllPostsLimiter = rateLimit({
     store: new RedisStore({
         sendCommand: (...args) => redis.call(...args)
     }),
-    keyGenerator: (req) => req.ip,
     handler: (req, res) => {
         res.status(429).json({
             success: false,

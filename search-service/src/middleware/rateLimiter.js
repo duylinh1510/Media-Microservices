@@ -10,7 +10,6 @@ const searchLimiter = rateLimit({
     store: new RedisStore({
         sendCommand: (...args) => redis.call(...args)
     }),
-    keyGenerator: (req) => req.ip,
     handler: (req, res) => {
         res.status(429).json({
             success: false,
